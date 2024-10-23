@@ -13,8 +13,6 @@ public class Player : MonoBehaviour
 
     private float xInput;
 
-    private bool isRunning;
-
     private Animator anim;
 
     private void Awake()
@@ -29,7 +27,7 @@ public class Player : MonoBehaviour
         
         HandleInput();
         HandleMovement();
-        HandleAnimation();
+        HandleAnimations();
     }
 
     private void HandleInput()
@@ -43,9 +41,8 @@ public class Player : MonoBehaviour
         rb.velocity = new Vector2(xInput * moveSpeed, rb.velocity.y);
     }
 
-        private void HandleAnimation()
+        private void HandleAnimations()
     {
-        isRunning = rb.velocity.x != 0;
-        anim.SetBool("isRunning", isRunning);
+        anim.SetFloat("xVelocity", rb.velocity.x);
     }
 }
