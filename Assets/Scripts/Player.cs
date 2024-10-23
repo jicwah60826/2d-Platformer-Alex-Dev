@@ -13,16 +13,23 @@ public class Player : MonoBehaviour
 
     private float xInput;
 
+    private bool isRunning;
+
+    private Animator anim;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
     private void Update()
     {
+        
         HandleInput();
         HandleMovement();
+        HandleAnimation();
     }
 
     private void HandleInput()
@@ -34,5 +41,11 @@ public class Player : MonoBehaviour
     {
         // Move Player
         rb.velocity = new Vector2(xInput * moveSpeed, rb.velocity.y);
+    }
+
+        private void HandleAnimation()
+    {
+        isRunning = rb.velocity.x != 0;
+        anim.SetBool("isRunning", isRunning);
     }
 }
