@@ -15,8 +15,6 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float jumpForce;
 
-    private float xInput;
-
     private Animator anim;
 
     [Header("Collision Info")]
@@ -27,6 +25,9 @@ public class Player : MonoBehaviour
     private float groundCheckDistance;
 
     private bool isGrounded;
+    private float xInput;
+    private bool facingRight = true;
+    private int facingDir = 1;
 
     private void Awake()
     {
@@ -40,18 +41,8 @@ public class Player : MonoBehaviour
         HandleCollision();
         HandleInput();
         HandleMovement();
+        HandleFlip();
         HandleAnimations();
-    }
-
-    private void HandleCollision()
-    {
-        // Ground Check
-        isGrounded = Physics2D.Raycast(
-            transform.position,
-            Vector2.down,
-            groundCheckDistance,
-            whatIsGround
-        );
     }
 
     private void HandleInput()
@@ -71,15 +62,45 @@ public class Player : MonoBehaviour
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
     }
 
+    private void HandleCollision()
+    {
+        // Ground Check
+        isGrounded = Physics2D.Raycast(
+            transform.position,
+            Vector2.down,
+            groundCheckDistance,
+            whatIsGround
+        );
+    }
+
+    private void HandleAnimations()
+    {
+        anim.SetFloat("xVelocity", rb.velocity.x);
+        anim.SetFloat("yVelocity", rb.velocity.y);
+        anim.SetBool("isGrounded", isGrounded);
+    }
+
     private void HandleMovement()
     {
         // Move Player
         rb.velocity = new Vector2(xInput * moveSpeed, rb.velocity.y);
     }
 
-    private void HandleAnimations()
+    private void HandleFlip()
     {
-        anim.SetFloat("xVelocity", rb.velocity.x);
+        // Detect Direction for flip
+        if (rb.velocity.x < 0 && facingRight || rb.velocity.x > 0 && !facingRight)
+        {
+            Flip();
+            facingRight = !facingRight;
+        }
+    }
+
+    private void Flip()
+    {
+        // Flip character
+        facingDir = facingDir * -1;
+        transform.Rotate(0, 180, 0);
     }
 
     private void OnDrawGizmos()
