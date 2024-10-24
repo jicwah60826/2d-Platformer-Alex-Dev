@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     private Animator anim;
 
     private float xInput;
+    private float yInput;
     private bool facingRight = true;
     private int facingDir = 1;
 
@@ -51,25 +52,23 @@ public class Player : MonoBehaviour
     private void Update()
     {
         UpdateAirborneStatus();
-        HandleCollision();
         HandleInput();
         HandleWallSlide();
         HandleMovement();
         HandleFlip();
+        HandleCollision();
         HandleAnimations();
     }
 
     private void HandleWallSlide()
     {
-        if (isWallDetected && rb.velocity.y < 0)
-        {
-            WallSliding();
-        }
-    }
+        bool canWallSlide = isWallDetected && rb.velocity.y < 0;
+        float yModifier = yInput < 0 ? 1 : .05f;
 
-    private void WallSliding()
-    {
-        rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * wallSlideSpeed);
+        if (canWallSlide == false)
+            return;
+
+        rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * yModifier);
     }
 
     private void UpdateAirborneStatus()
@@ -98,8 +97,9 @@ public class Player : MonoBehaviour
 
     private void HandleInput()
     {
-        // Left / Right input
+        // Player Input
         xInput = Input.GetAxisRaw("Horizontal");
+        yInput = Input.GetAxisRaw("Vertical");
 
         // Jump
         if (Input.GetKeyDown(KeyCode.Space))
@@ -160,7 +160,7 @@ public class Player : MonoBehaviour
         {
             return;
         }
-        
+
         // Move Player
         rb.velocity = new Vector2(xInput * moveSpeed, rb.velocity.y);
     }
