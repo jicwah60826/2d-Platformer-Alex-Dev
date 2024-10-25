@@ -738,7 +738,7 @@ Transform:
   m_GameObject: {fileID: 1144256141}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.39, y: -2.24, z: 0}
+  m_LocalPosition: {x: -6.821, y: -4.416, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -822,12 +822,13 @@ MonoBehaviour:
   moveSpeed: 8
   jumpForce: 14
   doubleJumpForce: 10
+  wallJumpDuration: 0.6
+  wallJumpForce: {x: 7, y: 14}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
   groundCheckDistance: 0.78
   wallCheckDistance: 0.6
-  wallSlideSpeed: 0.5
 --- !u!1 &1175741350
 GameObject:
   m_ObjectHideFlags: 0
