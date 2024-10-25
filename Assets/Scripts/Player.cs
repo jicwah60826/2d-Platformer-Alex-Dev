@@ -116,7 +116,6 @@ public class Player : MonoBehaviour
 
         if (rb.linearVelocity.y < 0)
         {
-            Debug.Log("Activiated Coyote Jump");
             ActivateCoyoteJump();
         }
     }
@@ -143,6 +142,8 @@ public class Player : MonoBehaviour
         }
     }
 
+    #region Buffer & Coyote Jump
+
     private void RequestBufferJump()
     {
         if (isAirborne)
@@ -166,6 +167,10 @@ public class Player : MonoBehaviour
 
     private void CancelCoyoteJump() => coyoteJumpActivated = Time.time - 1;
 
+    #endregion
+
+    #region Jump
+
     private void JumpButton()
     {
         //local bool only within this function
@@ -173,11 +178,6 @@ public class Player : MonoBehaviour
 
         if (isGrounded || coyoteJumpAvailable)
         {
-            if (coyoteJumpAvailable)
-            {
-                Debug.Log("I used coyote jump!");
-            }
-
             Jump();
         }
         else if (isWallDetected && !isGrounded)
@@ -202,12 +202,17 @@ public class Player : MonoBehaviour
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, doubleJumpForce);
     }
 
+    #endregion
+
+    #region Wall Slide & Wall Jump
+
     private void WallJump()
     {
         canDoubleJump = true;
         rb.linearVelocity = new Vector2(wallJumpForce.x * -facingDir, wallJumpForce.y);
 
         Flip();
+
         StopCoroutine(WallJumpRoutine());
         StartCoroutine(WallJumpRoutine());
     }
@@ -221,15 +226,6 @@ public class Player : MonoBehaviour
         isWallJumping = false;
     }
 
-    private IEnumerator KnockBackCo()
-    {
-        isKnocked = true;
-
-        yield return new WaitForSeconds(knockBackDuration);
-
-        isKnocked = false;
-    }
-
     private void HandleWallSlide()
     {
         bool canWallSlide = isWallDetected && rb.linearVelocity.y < 0;
@@ -239,6 +235,17 @@ public class Player : MonoBehaviour
             return;
 
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * yModifier);
+    }
+
+    #endregion
+
+    private IEnumerator KnockBackCo()
+    {
+        isKnocked = true;
+
+        yield return new WaitForSeconds(knockBackDuration);
+
+        isKnocked = false;
     }
 
     private void HandleCollision()
