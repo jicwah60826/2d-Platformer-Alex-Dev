@@ -119,19 +119,19 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void Jump() => rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+    private void Jump() => rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
 
     private void DoubleJump()
     {
         isWallJumping = false;
         canDoubleJump = false;
-        rb.velocity = new Vector2(rb.velocity.x, doubleJumpForce);
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, doubleJumpForce);
     }
 
     private void WallJump()
     {
         canDoubleJump = true;
-        rb.velocity = new Vector2(wallJumpForce.x * -facingDir, wallJumpForce.y);
+        rb.linearVelocity = new Vector2(wallJumpForce.x * -facingDir, wallJumpForce.y);
 
         Flip();
         StopCoroutine(WallJumpRoutine());
@@ -149,13 +149,13 @@ public class Player : MonoBehaviour
 
     private void HandleWallSlide()
     {
-        bool canWallSlide = isWallDetected && rb.velocity.y < 0;
+        bool canWallSlide = isWallDetected && rb.linearVelocity.y < 0;
         float yModifier = yInput < 0 ? 1 : .05f;
 
         if (canWallSlide == false)
             return;
 
-        rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * yModifier);
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * yModifier);
     }
 
     private void HandleCollision()
@@ -178,8 +178,8 @@ public class Player : MonoBehaviour
 
     private void HandleAnimations()
     {
-        anim.SetFloat("xVelocity", rb.velocity.x);
-        anim.SetFloat("yVelocity", rb.velocity.y);
+        anim.SetFloat("xVelocity", rb.linearVelocity.x);
+        anim.SetFloat("yVelocity", rb.linearVelocity.y);
         anim.SetBool("isGrounded", isGrounded);
         anim.SetBool("isWallDetected", isWallDetected);
     }
@@ -193,7 +193,7 @@ public class Player : MonoBehaviour
             return;
 
         // Move Player
-        rb.velocity = new Vector2(xInput * moveSpeed, rb.velocity.y);
+        rb.linearVelocity = new Vector2(xInput * moveSpeed, rb.linearVelocity.y);
     }
 
     private void HandleFlip()
