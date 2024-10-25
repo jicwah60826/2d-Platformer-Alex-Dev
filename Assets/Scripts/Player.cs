@@ -25,6 +25,11 @@ public class Player : MonoBehaviour
     private float doubleJumpForce;
     private bool canDoubleJump;
 
+    [Header("Buffer Jump")]
+    [SerializeField]
+    private float bufferJumpWindow = .25f;
+    private float bufferJumpActivated = -1;
+
     [Header("Wall Interactions")]
     [SerializeField]
     private float wallJumpDuration = .6f;
@@ -110,6 +115,8 @@ public class Player : MonoBehaviour
     {
         isAirborne = false;
         canDoubleJump = true;
+
+        AttemptBufferJump();
     }
 
     private void HandleInput()
@@ -122,6 +129,26 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             JumpButton();
+            RequestBufferJump();
+        }
+    }
+
+    private void RequestBufferJump()
+    {
+        if (isAirborne)
+        {
+            //store current time in game that request occurs
+            bufferJumpActivated = Time.time;
+        }
+    }
+
+    private void AttemptBufferJump()
+    {
+        if (Time.time < bufferJumpActivated + bufferJumpWindow)
+        {
+            //we still have time to allow the buffer jump
+            bufferJumpActivated = 0; //reset
+            Jump();
         }
     }
 
@@ -173,11 +200,6 @@ public class Player : MonoBehaviour
     {
         canBeKnocked = false;
         isKnocked = true;
-
-        if (canBeKnocked)
-        {
-            Debug.Log("canBeknocked!");
-        }
 
         yield return new WaitForSeconds(knockBackDuration);
 
