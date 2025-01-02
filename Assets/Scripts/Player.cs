@@ -69,6 +69,8 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponentInChildren<Animator>();
+
+        //GameManager.instance.Score();
     }
 
     // Update is called once per frame
