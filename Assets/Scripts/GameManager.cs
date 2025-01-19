@@ -4,6 +4,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
+    [SerializeField] private int fruitCount;
+
     public Player player;
 
     private void Awake()
@@ -23,6 +25,10 @@ public class GameManager : MonoBehaviour
     }
 
 
+    public void CollectiblePickup(int amount)
+    {
+        fruitCount += amount;
+    }
 
 
 }

@@ -69,8 +69,6 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponentInChildren<Animator>();
-
-        //GameManager.instance.Score();
     }
 
     // Update is called once per frame
@@ -89,7 +87,7 @@ public class Player : MonoBehaviour
         HandleAnimations();
     }
 
-    private void KnockBack()
+    public void KnockBack()
     {
         if (isKnocked)
             return;
@@ -199,9 +197,11 @@ public class Player : MonoBehaviour
 
     private void DoubleJump()
     {
-        isWallJumping = false;
-        canDoubleJump = false;
-        rb.linearVelocity = new Vector2(rb.linearVelocity.x, doubleJumpForce);
+
+            isWallJumping = false;
+            canDoubleJump = false;
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, doubleJumpForce);
+
     }
 
     #endregion
