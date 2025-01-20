@@ -4,7 +4,11 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
+
+    [Header("Fruits Management")]
+    public bool assignRandomFruit;
     public int fruitsCollected;
+
 
 
     public Player player;
@@ -26,6 +30,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void AddFruit() => fruitsCollected++;
+    public bool AssignRandomFruit() => assignRandomFruit;
 
 
 }
