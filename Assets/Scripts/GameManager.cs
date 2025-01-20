@@ -4,7 +4,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    [SerializeField] private int fruitCount;
+    public int fruitsCollected;
+
 
     public Player player;
 
@@ -21,14 +22,10 @@ public class GameManager : MonoBehaviour
         }
 
 
-        player = FindAnyObjectByType<Player>();
+        player = FindAnyObjectByType<Player>(); //auto assign Player
     }
 
-
-    public void CollectiblePickup(int amount)
-    {
-        fruitCount += amount;
-    }
+    public void AddFruit() => fruitsCollected++;
 
 
 }

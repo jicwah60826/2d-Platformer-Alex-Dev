@@ -1,10 +1,23 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class FruitPickup : MonoBehaviour
 {
-    [SerializeField] private int fruitAmount;
+
+    private GameManager gameManager;
+    private Animator animator;
 
     private bool isCollected;
+
+    private void Awake()
+    {
+        animator = GetComponentInChildren<Animator>();
+    }
+
+    private void Start()
+    {
+        gameManager = GameManager.instance;
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -12,6 +25,7 @@ public class FruitPickup : MonoBehaviour
         {
 
             isCollected = true;
+            gameManager.AddFruit();
             Destroy(gameObject);
         }
     }
