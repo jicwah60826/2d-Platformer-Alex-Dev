@@ -65,6 +65,9 @@ public class Player : MonoBehaviour
     private bool isAirborne;
     private bool isWallDetected;
 
+    [Header("VFX")]
+    [SerializeField] private GameObject deathVfx;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -95,6 +98,12 @@ public class Player : MonoBehaviour
         StartCoroutine(KnockBackCo());
         anim.SetTrigger("knockBack");
         rb.linearVelocity = new Vector2(knockBackPower.x * -facingDir, knockBackPower.y);
+    }
+
+    public void Die()
+    {
+        Destroy(gameObject);
+        Instantiate(deathVfx, transform.position, Quaternion.identity);
     }
 
     private void UpdateAirborneStatus()

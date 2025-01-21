@@ -6,6 +6,7 @@ public enum fruitType { Apple, Banana, Cherry, Kiwi, Melon, Orange, Pineapple, S
 public class FruitPickup : MonoBehaviour
 {
     [SerializeField] private fruitType fruitType;
+    [SerializeField] private GameObject pickupVfx;
 
     private GameManager gameManager;
     private Animator anim;
@@ -39,9 +40,16 @@ public class FruitPickup : MonoBehaviour
         if (other.tag == "Player" && !isCollected)
         {
 
-            isCollected = true;
-            gameManager.AddFruit();
-            Destroy(gameObject);
+            Player player = other.GetComponent<Player>();
+
+            if (player != null)
+            {
+                isCollected = true;
+                gameManager.AddFruit();
+                Destroy(gameObject);
+                Instantiate(pickupVfx,transform.position,Quaternion.identity);
+            }
+
         }
     }
 
