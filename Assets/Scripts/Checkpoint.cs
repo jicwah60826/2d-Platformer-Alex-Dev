@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Checkpoint : MonoBehaviour
 {
-    private Animator anim;
+    private Animator anim => GetComponent<Animator>();
     private bool isActive;
 
 
@@ -21,8 +21,9 @@ public class Checkpoint : MonoBehaviour
 
     private void ActivateCheckPoint()
     {
-        anim.SetBool("active", isActive);
+        isActive = true;
+        anim.SetTrigger("activate");
+        GameManager.instance.UpdateRespawnPosition(transform);
     }
-
 
 }

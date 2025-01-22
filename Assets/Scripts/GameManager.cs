@@ -34,6 +34,8 @@ public class GameManager : MonoBehaviour
     public void AddFruit() => fruitsCollected++;
     public bool AssignRandomFruit() => assignRandomFruit;
 
+    public void UpdateRespawnPosition(Transform newrespawnPoint) => respawnPoint = newrespawnPoint;
+
     public void RespawnPlayer() => StartCoroutine(RespawnCo());
 
     private IEnumerator RespawnCo()
