@@ -5,8 +5,6 @@ public class LevelEndpoint : MonoBehaviour
     private Animator anim => GetComponent<Animator>();
     private bool isActive;
     [SerializeField] private GameObject blocker;
-    [SerializeField] private GameObject levelEndFx;
-    [SerializeField] private GameObject fxSpawnPoint;
 
     private void Awake()
     {
@@ -26,7 +24,6 @@ public class LevelEndpoint : MonoBehaviour
             Debug.Log("Level Over");
             isActive = true;
             blocker.SetActive(true);
-            Instantiate(levelEndFx, fxSpawnPoint.gameObject.transform.position, Quaternion.identity);
             anim.SetTrigger("activated");
         }
     }

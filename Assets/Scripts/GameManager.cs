@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     [Header("Fruits Management")]
     public bool assignRandomFruit;
     public int fruitsCollected;
+    public int totalFruits;
 
     private void Awake()
     {
@@ -29,6 +30,18 @@ public class GameManager : MonoBehaviour
 
 
         player = FindAnyObjectByType<Player>(); //auto assign Player
+    }
+
+    private void Start()
+    {
+        GetAllFruits();
+    }
+
+    private void GetAllFruits()
+    {
+        // find all fruits in scene
+        FruitPickup[] ar_allFruits = FindObjectsByType<FruitPickup>(FindObjectsSortMode.None);
+        totalFruits = ar_allFruits.Length;
     }
 
     public void AddFruit() => fruitsCollected++;

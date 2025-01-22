@@ -142273,6 +142273,7 @@ MonoBehaviour:
   player: {fileID: 1144256145}
   assignRandomFruit: 0
   fruitsCollected: 0
+  totalFruits: 0
 --- !u!4 &2088654674
 Transform:
   m_ObjectHideFlags: 0
