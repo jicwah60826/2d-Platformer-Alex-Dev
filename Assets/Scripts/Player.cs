@@ -43,7 +43,7 @@ public class Player : MonoBehaviour
 
     [Header("Knockback")]
     [SerializeField]
-    private float knockBackDuration = 1f;
+    private float knockBackDuration = 0f;
 
     [SerializeField]
     private Vector2 knockBackPower;
