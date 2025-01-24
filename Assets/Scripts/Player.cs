@@ -120,7 +120,6 @@ public class Player : MonoBehaviour
             return;
 
         StartCoroutine(KnockBackCo());
-        anim.SetTrigger("knockBack");
         rb.linearVelocity = new Vector2(knockBackPower.x * -facingDir, knockBackPower.y);
     }
 
@@ -277,10 +276,13 @@ public class Player : MonoBehaviour
     private IEnumerator KnockBackCo()
     {
         isKnocked = true;
+        anim.SetBool("isKnocked", isKnocked);
 
         yield return new WaitForSeconds(knockBackDuration);
 
         isKnocked = false;
+
+        anim.SetBool("isKnocked", isKnocked);
     }
 
     private void HandleCollision()
