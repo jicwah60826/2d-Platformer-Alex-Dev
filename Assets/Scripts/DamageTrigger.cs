@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class DamageTrigger : MonoBehaviour
 {
-
     private void OnTriggerEnter2D(Collider2D other)
     {
         Player player = other.gameObject.GetComponent<Player>();
@@ -11,6 +10,5 @@ public class DamageTrigger : MonoBehaviour
         {
             player.KnockBack(transform.position.x);
         }
-
     }
 }

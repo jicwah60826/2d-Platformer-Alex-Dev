@@ -4,20 +4,25 @@ using UnityEngine;
 
 public class Trap_Saw : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 3f;
-    [SerializeField] private float coolDown = 1f;
-    [SerializeField] private Transform[] wayPoints;
+    [SerializeField]
+    private float moveSpeed = 3f;
+
+    [SerializeField]
+    private float coolDown = 1f;
+
+    [SerializeField]
+    private Transform[] wayPoints;
     private SpriteRenderer sr;
     private Animator anim;
 
-
     public int waypointIndex = 1;
+    public int moveDirection = 1; //1 is forward, -1 is reverse
     private bool canMove = true;
 
     private void Awake()
     {
-        anim = GetComponent<Animator> ();
-        sr = GetComponent<SpriteRenderer> ();
+        anim = GetComponent<Animator>();
+        sr = GetComponent<SpriteRenderer>();
     }
 
     private void Start()
@@ -30,25 +35,25 @@ public class Trap_Saw : MonoBehaviour
     {
         anim.SetBool("active", canMove);
 
-        if (!canMove) return;
+        if (!canMove)
+            return;
 
-            transform.position = Vector2.MoveTowards(transform.position, wayPoints[waypointIndex].position, moveSpeed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(
+            transform.position,
+            wayPoints[waypointIndex].position,
+            moveSpeed * Time.deltaTime
+        );
 
-            if (Vector2.Distance(transform.position, wayPoints[waypointIndex].position) < .1f)
+        if (Vector2.Distance(transform.position, wayPoints[waypointIndex].position) < .1f)
+        {
+            if (waypointIndex == wayPoints.Length - 1 || waypointIndex == 0)
             {
-            //move to next waypoint
-            waypointIndex++;
-            // flip the sprite each time we iterate
-            sr.flipX = !sr.flipX;
-
-                if (waypointIndex >= wayPoints.Length)
-                {
-                    //reset to starting waypoint
-                    waypointIndex = 0;
-                    StartCoroutine(StopMovementCo(coolDown));
-                }
-
+                moveDirection = moveDirection * -1;
             }
+
+            waypointIndex = waypointIndex + moveDirection;
+            Debug.Log("waypointIndex: " + waypointIndex);
+        }
     }
 
     private IEnumerator StopMovementCo(float delay)
@@ -59,5 +64,4 @@ public class Trap_Saw : MonoBehaviour
 
         canMove = true;
     }
-
 }

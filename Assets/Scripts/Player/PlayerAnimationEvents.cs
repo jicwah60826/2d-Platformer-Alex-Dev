@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerAnimationEvents : MonoBehaviour
 {
-private Player player;
+    private Player player;
 
     private void Awake()
     {

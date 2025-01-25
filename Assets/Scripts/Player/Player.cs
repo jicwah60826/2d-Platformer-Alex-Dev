@@ -17,9 +17,14 @@ public class Player : MonoBehaviour
     private bool canBeControlled = false;
 
     [Header("Movement")]
-    [SerializeField] private float moveSpeed;
-    [SerializeField] private float jumpForce;
-    [SerializeField] private float doubleJumpForce;
+    [SerializeField]
+    private float moveSpeed;
+
+    [SerializeField]
+    private float jumpForce;
+
+    [SerializeField]
+    private float doubleJumpForce;
     private float defaultGravityScale;
     private bool canDoubleJump;
 
@@ -64,14 +69,14 @@ public class Player : MonoBehaviour
     private bool isWallDetected;
 
     [Header("VFX")]
-    [SerializeField] private GameObject deathVfx;
+    [SerializeField]
+    private GameObject deathVfx;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponentInChildren<Animator>();
         cd = GetComponent<CapsuleCollider2D>();
-        
     }
 
     private void Start()
@@ -79,12 +84,14 @@ public class Player : MonoBehaviour
         defaultGravityScale = rb.gravityScale;
         RespawnFinished(false);
     }
+
     // Update is called once per frame
     private void Update()
     {
         UpdateAirborneStatus();
 
-        if(!canBeControlled) return; // stop all below if we cannot be controlled
+        if (!canBeControlled)
+            return; // stop all below if we cannot be controlled
 
         if (isKnocked)
             return;
@@ -99,7 +106,6 @@ public class Player : MonoBehaviour
 
     public void RespawnFinished(bool finished)
     {
-
         if (finished)
         {
             rb.gravityScale = defaultGravityScale;
@@ -118,7 +124,7 @@ public class Player : MonoBehaviour
     {
         float knockBackDir = 1;
 
-        if(transform.position.x < sourceDamageXPos)
+        if (transform.position.x < sourceDamageXPos)
         {
             //damage has come from the right - knock player to left.
             knockBackDir = -1;
@@ -237,11 +243,9 @@ public class Player : MonoBehaviour
 
     private void DoubleJump()
     {
-
-            isWallJumping = false;
-            canDoubleJump = false;
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, doubleJumpForce);
-
+        isWallJumping = false;
+        canDoubleJump = false;
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, doubleJumpForce);
     }
 
     #endregion
@@ -349,7 +353,7 @@ public class Player : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
+        Gizmos.color = Color.yellow;
         // Draw Ground Check Line
         Gizmos.DrawLine(
             transform.position,
