@@ -114,13 +114,21 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void KnockBack()
+    public void KnockBack(float sourceDamageXPos)
     {
+        float knockBackDir = 1;
+
+        if(transform.position.x < sourceDamageXPos)
+        {
+            //damage has come from the right - knock player to left.
+            knockBackDir = -1;
+        }
+
         if (isKnocked)
             return;
 
         StartCoroutine(KnockBackCo());
-        rb.linearVelocity = new Vector2(knockBackPower.x * -facingDir, knockBackPower.y);
+        rb.linearVelocity = new Vector2(knockBackPower.x * knockBackDir, knockBackPower.y);
     }
 
     public void Die()
