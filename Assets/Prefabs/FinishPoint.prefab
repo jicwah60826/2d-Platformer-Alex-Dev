@@ -33,6 +33,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 5848871553151341544}
   - {fileID: 2312067712088661788}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -104,8 +105,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blocker: {fileID: 5754774001635651603}
-  levelEndFx: {fileID: 5030582375839137490, guid: 36ee6e83812bcf14a938671be62d4b72, type: 3}
-  fxSpawnPoint: {fileID: 0}
+  levelEndVfx: {fileID: 0}
+  levelEndFxPoint: {fileID: 8218101236802983257}
 --- !u!61 &6995109179428256594
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -283,6 +284,37 @@ Transform:
   m_Children:
   - {fileID: 7874595120578581760}
   - {fileID: 145935813385912539}
+  m_Father: {fileID: 7763650215967306174}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8218101236802983257
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5848871553151341544}
+  m_Layer: 0
+  m_Name: LevelEndVfxPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5848871553151341544
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8218101236802983257}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -22.675545, y: -6.542139, z: 0.04319481}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
   m_Father: {fileID: 7763650215967306174}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8615648429763596606

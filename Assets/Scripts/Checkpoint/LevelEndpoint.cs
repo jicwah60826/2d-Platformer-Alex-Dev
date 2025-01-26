@@ -8,6 +8,12 @@ public class LevelEndpoint : MonoBehaviour
     [SerializeField]
     private GameObject blocker;
 
+    [SerializeField]
+    private GameObject levelEndVfx;
+
+    [SerializeField]
+    private GameObject levelEndFxPoint;
+
     private void Awake()
     {
         blocker.SetActive(false);
@@ -26,6 +32,7 @@ public class LevelEndpoint : MonoBehaviour
             isActive = true;
             blocker.SetActive(true);
             anim.SetTrigger("activated");
+            Instantiate(levelEndVfx, levelEndFxPoint.transform.position, Quaternion.identity);
         }
     }
 }
