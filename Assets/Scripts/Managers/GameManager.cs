@@ -21,6 +21,12 @@ public class GameManager : MonoBehaviour
     public int fruitsCollected;
     public int totalFruits;
 
+    [Header("Checkpoints")]
+    public bool canReactivate;
+
+    [Header("Traps")]
+    public GameObject arrowPrefab;
+
     private void Awake()
     {
         if (instance == null)
@@ -68,5 +74,19 @@ public class GameManager : MonoBehaviour
 
         // set the player var in the inspector to the object it finds the player method on
         player = newPlayer.GetComponent<Player>();
+    }
+
+    public void CreateObject(GameObject prefab, Transform target, float delay = 0f)
+    {
+        StartCoroutine(CreateObjectCo(prefab, target, delay));
+    }
+
+    private IEnumerator CreateObjectCo(GameObject prefab, Transform target, float delay = 0f)
+    {
+        Vector3 newPosition = target.position; // save location BEFORE we do the delay
+
+        yield return new WaitForSeconds(delay);
+
+        GameObject newObject = Instantiate(prefab, newPosition, Quaternion.identity);
     }
 }

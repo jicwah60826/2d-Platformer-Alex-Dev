@@ -241,11 +241,11 @@ MonoBehaviour:
   coyoteJumpWindow: 0.2
   wallJumpDuration: 0.6
   wallJumpForce: {x: 7, y: 14}
-  knockBackDuration: 0.7
+  knockBackDuration: 0.6
   knockBackPower: {x: 5, y: 7}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
   groundCheckDistance: 0.8
-  wallCheckDistance: 0.65
+  wallCheckDistance: 0.6
   deathVfx: {fileID: 5705321894121786318, guid: 4bb8c9bd0be461e4fab0d4a2800385f5, type: 3}

@@ -2,11 +2,12 @@ using UnityEngine;
 
 public class Trap_Trampoline : MonoBehaviour
 {
+    [Header("Trampoline Mechanics")]
     [SerializeField]
-    private float pushPower;
+    protected float pushPower;
 
     [SerializeField]
-    private float duration = .5f;
+    protected float duration = .5f;
 
     private Animator anim;
 
