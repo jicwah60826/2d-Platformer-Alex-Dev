@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting.FullSerializer;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -91,7 +92,11 @@ public class Player : MonoBehaviour
         UpdateAirborneStatus();
 
         if (!canBeControlled)
+        {
+            HandleAnimations();
+            HandleCollision();
             return; // stop all below if we cannot be controlled
+        }
 
         if (isKnocked)
             return;
@@ -141,6 +146,11 @@ public class Player : MonoBehaviour
     {
         Destroy(gameObject);
         Instantiate(deathVfx, transform.position, Quaternion.identity);
+    }
+
+    public void Push(Vector2 direction, float duration = 0)
+    {
+        StartCoroutine(PushCoRoutine(direction, duration));
     }
 
     private void UpdateAirborneStatus()
@@ -285,18 +295,6 @@ public class Player : MonoBehaviour
 
     #endregion
 
-    private IEnumerator KnockBackCo()
-    {
-        isKnocked = true;
-        anim.SetBool("isKnocked", isKnocked);
-
-        yield return new WaitForSeconds(knockBackDuration);
-
-        isKnocked = false;
-
-        anim.SetBool("isKnocked", isKnocked);
-    }
-
     private void HandleCollision()
     {
         // Ground Check
@@ -369,4 +367,34 @@ public class Player : MonoBehaviour
             )
         );
     }
+
+    #region CoRoutines
+
+    private IEnumerator KnockBackCo()
+    {
+        isKnocked = true;
+        anim.SetBool("isKnocked", isKnocked);
+
+        yield return new WaitForSeconds(knockBackDuration);
+
+        isKnocked = false;
+
+        anim.SetBool("isKnocked", isKnocked);
+    }
+
+    private IEnumerator PushCoRoutine(Vector2 direction, float duration)
+    {
+        // disable player controls
+        canBeControlled = false;
+
+        // remove all player velocity
+        rb.linearVelocity = Vector2.zero;
+        rb.AddForce(direction, ForceMode2D.Impulse);
+
+        yield return new WaitForSeconds(duration);
+
+        canBeControlled = true;
+    }
+
+    #endregion
 }

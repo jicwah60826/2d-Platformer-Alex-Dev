@@ -14,6 +14,9 @@ public class LevelEndpoint : MonoBehaviour
     [SerializeField]
     private GameObject levelEndFxPoint;
 
+    [SerializeField]
+    private bool colliderBlockers;
+
     private void Awake()
     {
         blocker.SetActive(false);
@@ -30,7 +33,11 @@ public class LevelEndpoint : MonoBehaviour
         {
             Debug.Log("Level Over");
             isActive = true;
-            blocker.SetActive(true);
+            if (colliderBlockers)
+            {
+                blocker.SetActive(true);
+            }
+
             anim.SetTrigger("activated");
             Instantiate(levelEndVfx, levelEndFxPoint.transform.position, Quaternion.identity);
         }
