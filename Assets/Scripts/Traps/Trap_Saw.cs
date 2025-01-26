@@ -1,5 +1,6 @@
 using ES3Types;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Trap_Saw : MonoBehaviour
@@ -11,7 +12,11 @@ public class Trap_Saw : MonoBehaviour
     private float coolDown = 1f;
 
     [SerializeField]
-    private Transform[] wayPoints;
+    private Transform[] wayPoint;
+
+    [SerializeField]
+    private Vector3[] wayPointPosition;
+
     private SpriteRenderer sr;
     private Animator anim;
 
@@ -27,8 +32,22 @@ public class Trap_Saw : MonoBehaviour
 
     private void Start()
     {
-        // start at waypoint index 0
-        transform.position = wayPoints[0].position;
+        // get the vector3 data for all the waypoints before we do any moving
+        GetWayPointsInfo();
+
+        // snap saw to first waypoint poistion
+        transform.position = wayPointPosition[0];
+    }
+
+    private void GetWayPointsInfo()
+    {
+        wayPointPosition = new Vector3[wayPoint.Length];
+
+        // get all waypoint positions and store all to wayPointLocations array
+        for (int i = 0; i < wayPoint.Length; i++)
+        {
+            wayPointPosition[i] = wayPoint[i].position;
+        }
     }
 
     private void Update()
@@ -40,19 +59,22 @@ public class Trap_Saw : MonoBehaviour
 
         transform.position = Vector2.MoveTowards(
             transform.position,
-            wayPoints[waypointIndex].position,
+            wayPointPosition[waypointIndex],
             moveSpeed * Time.deltaTime
         );
 
-        if (Vector2.Distance(transform.position, wayPoints[waypointIndex].position) < .1f)
+        if (Vector2.Distance(transform.position, wayPointPosition[waypointIndex]) < .1f)
         {
-            if (waypointIndex == wayPoints.Length - 1 || waypointIndex == 0)
+            if (waypointIndex == wayPointPosition.Length - 1 || waypointIndex == 0)
             {
                 moveDirection = moveDirection * -1;
+
+                StartCoroutine(StopMovementCo(coolDown));
             }
 
             waypointIndex = waypointIndex + moveDirection;
-            Debug.Log("waypointIndex: " + waypointIndex);
+            // flip the saw position based on the next waypoin's position
+            sr.flipX = transform.position.x < wayPointPosition[waypointIndex].x;
         }
     }
 
