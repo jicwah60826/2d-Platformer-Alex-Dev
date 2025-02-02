@@ -117,6 +117,7 @@ public class Trap_FallingPlatform : MonoBehaviour
 
         canMove = false;
 
+        // set tp Dynamic to Disable Is Kinematic
         rb.bodyType = RigidbodyType2D.Dynamic;
         rb.gravityScale = 3.5f;
         rb.linearDamping = .5f;
