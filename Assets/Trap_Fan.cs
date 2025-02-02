@@ -75,8 +75,6 @@ public class Trap_Fan : MonoBehaviour
     {
         //set Player gravity to 0
         playerRb.gravityScale = playerGravityonEnter;
-        // remove all player velocity
-        //playerRb.linearVelocity = Vector2.zero;
     }
 
     private void OnTriggerExit2D(Collider2D other)
