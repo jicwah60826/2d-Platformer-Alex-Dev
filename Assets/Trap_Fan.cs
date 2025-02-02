@@ -1,3 +1,5 @@
+using ES3Types;
+using System.Collections;
 using UnityEngine;
 
 public class Trap_Fan : MonoBehaviour
@@ -7,6 +9,7 @@ public class Trap_Fan : MonoBehaviour
     private Rigidbody2D playerRb;
     private float playerStartingGravity;
     private Player player;
+    private Animator anim;
 
     [SerializeField]
     private float effectorAngle;
@@ -16,6 +19,13 @@ public class Trap_Fan : MonoBehaviour
 
     [SerializeField]
     private float playerGravityonEnter;
+
+    [SerializeField]
+    private float randomStartDelay;
+
+    private float randomDelay;
+
+    private bool active;
 
     private void Awake()
     {
@@ -35,18 +45,43 @@ public class Trap_Fan : MonoBehaviour
         //set effector parameters
         effector.forceAngle = effectorAngle;
         effector.forceMagnitude = effectorStrength;
+
+        anim = GetComponent<Animator>();
     }
 
+    private void Start()
+    {
+        randomDelay = Random.Range(0, randomStartDelay);
+        Debug.Log(randomDelay);
+        StartCoroutine(StartFansCo(randomDelay));
+    }
+
+    private void Update()
+    {
+        HandleAnimation();
+    }
+
+    private IEnumerator StartFansCo(float delay)
+    {
+        active = false;
+        yield return new WaitForSeconds(delay);
+        active = true;
+        anim.SetBool("active", active);
+    }
+
+    private void HandleAnimation() => anim.SetBool("active", active);
+
     private void OnTriggerEnter2D(Collider2D other)
-    { //set Player gravity to 0
+    {
+        //set Player gravity to 0
         playerRb.gravityScale = playerGravityonEnter;
-        Debug.Log("playerStartingGravity set to 0");
+        // remove all player velocity
+        //playerRb.linearVelocity = Vector2.zero;
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
         // set player gravity back to initial
         playerRb.gravityScale = playerStartingGravity;
-        Debug.Log("playerStartingGravity: " + playerStartingGravity);
     }
 }
