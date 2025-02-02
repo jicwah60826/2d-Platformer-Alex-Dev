@@ -11,6 +11,12 @@ public class MovingPlatform : MonoBehaviour
 
     public float moveSpeed;
 
+    private void Awake()
+    {
+        //put saw or platform at the first move point
+        transform.position = movePoints[0].position;
+    }
+
     // Update is called once per frame
     void Update()
     {

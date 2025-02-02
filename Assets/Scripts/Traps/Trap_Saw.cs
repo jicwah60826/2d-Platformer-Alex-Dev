@@ -28,15 +28,40 @@ public class Trap_Saw : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
+        //put saw or platform at the first move point
+        transform.position = wayPoint[0].position;
     }
 
     private void Start()
     {
         // get the vector3 data for all the waypoints before we do any moving
         GetWayPointsInfo();
+        Setup();
+    }
 
+    private void Setup()
+    {
         // snap saw to first waypoint poistion
         transform.position = wayPointPosition[0];
+
+        // get the position of the starting waypoint
+        float startingPointPosition = transform.position.x;
+        Debug.Log("startingPointPosition: " + startingPointPosition);
+
+        // get the position of the FIRST waypoint
+        float firstWayPointxPosition = wayPointPosition[1].x;
+        Debug.Log("firstWayPointxPosition: " + firstWayPointxPosition);
+
+        if (firstWayPointxPosition > startingPointPosition)
+        {
+            // if the first waypoint is on the RIGHT - flip the sprite on the X
+            sr.flipX = true;
+        }
+        else
+        {
+            // if the first waypoint is on the LEFT - keep sprite flip x disabled
+            sr.flipX = false;
+        }
     }
 
     private void GetWayPointsInfo()
