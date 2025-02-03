@@ -65,6 +65,16 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float wallCheckDistance;
 
+    [Header("Enemy Detection")]
+    [SerializeField]
+    private LayerMask whatIsEnemy;
+
+    [SerializeField]
+    private Transform enemyCheck;
+
+    [SerializeField]
+    private float enemyCheckRadius;
+
     private bool isGrounded;
     private bool isAirborne;
     private bool isWallDetected;
@@ -101,12 +111,39 @@ public class Player : MonoBehaviour
         if (isKnocked)
             return;
 
+        HandleEnemyDetection();
         HandleInput();
         HandleWallSlide();
         HandleMovement();
         HandleFlip();
         HandleCollision();
         HandleAnimations();
+    }
+
+    private void HandleEnemyDetection()
+    {
+        //only do this while player is falling
+        if (rb.linearVelocityY >= 0)
+            return;
+
+        //Create an array of colliders as local variable. Array will be all objects player is colliding with
+
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(
+            enemyCheck.position,
+            enemyCheckRadius,
+            whatIsEnemy
+        );
+
+        foreach (var enemy in colliders)
+        {
+            Enemy newEmeny = enemy.GetComponent<Enemy>();
+
+            if (newEmeny != null)
+            {
+                newEmeny.Die();
+                Jump(); // bounce the player of enem head
+            }
+        }
     }
 
     public void RespawnFinished(bool finished)
@@ -366,6 +403,8 @@ public class Player : MonoBehaviour
                 transform.position.y
             )
         );
+
+        Gizmos.DrawWireSphere(enemyCheck.position, enemyCheckRadius);
     }
 
     #region CoRoutines

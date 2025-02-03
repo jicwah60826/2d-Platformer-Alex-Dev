@@ -1,3 +1,4 @@
+using ES3Types;
 using TMPro.EditorUtilities;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -10,10 +11,14 @@ public class Enemy : MonoBehaviour
     protected Rigidbody2D rb;
 
     [SerializeField]
-    protected float moveSpeed;
+    protected float moveSpeed = 2f;
 
     [SerializeField]
-    protected float idleDuration;
+    protected GameObject damageTrigger;
+
+    [Space]
+    [SerializeField]
+    protected float idleDuration = 1.5f;
 
     protected float idleTimer;
 
@@ -29,6 +34,17 @@ public class Enemy : MonoBehaviour
 
     [SerializeField]
     protected Transform groundCheck;
+
+    [Header("Death Details")]
+    [SerializeField]
+    private float deathImpactSpeed = 5f;
+
+    [SerializeField]
+    protected float deathRotationSpeed = 150;
+
+    protected bool isDead;
+
+    private int deathRotationDirection = 1;
 
     protected bool isWallDetected;
     protected bool isGrounded;
@@ -50,6 +66,32 @@ public class Enemy : MonoBehaviour
     protected virtual void Update()
     {
         idleTimer -= Time.deltaTime;
+
+        if (isDead)
+        {
+            HandleDeathRotation();
+        }
+    }
+
+    public virtual void Die()
+    {
+        // Trigger enemy death animation
+        anim.SetTrigger("hit");
+        isDead = true;
+        damageTrigger.SetActive(false);
+        // Make enemy jump a little
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, deathImpactSpeed);
+
+        // 50% chance that enemy will rotate one way or the other.
+        if (Random.Range(0, 100) < 50)
+        {
+            deathRotationDirection = deathRotationDirection * -1;
+        }
+    }
+
+    private void HandleDeathRotation()
+    {
+        transform.Rotate(0, 0, (deathRotationSpeed * deathRotationDirection) * Time.deltaTime);
     }
 
     protected virtual void HandleFlip(float xValue)
