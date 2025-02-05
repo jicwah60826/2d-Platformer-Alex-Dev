@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
     // script will be used by enemies through inheritence
     protected Animator anim;
     protected Rigidbody2D rb;
+    protected Collider2D col;
 
     [SerializeField]
     protected float moveSpeed = 2f;
@@ -61,6 +62,7 @@ public class Enemy : MonoBehaviour
 
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        col = GetComponent<Collider2D>();
     }
 
     protected virtual void Update()
@@ -77,6 +79,8 @@ public class Enemy : MonoBehaviour
     {
         // Trigger enemy death animation
         anim.SetTrigger("hit");
+        // Disable Colliders
+        col.enabled = false;
         isDead = true;
         damageTrigger.SetActive(false);
         // Make enemy jump a little
