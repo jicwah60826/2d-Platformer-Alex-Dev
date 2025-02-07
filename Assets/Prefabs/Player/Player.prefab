@@ -148,7 +148,7 @@ Transform:
   m_GameObject: {fileID: 2700578096035962267}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.71, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -268,7 +268,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 8
   jumpForce: 14
-  doubleJumpForce: 11
+  doubleJumpForce: 10
+  doubleJumpAbility: 0
+  wallJumpSlideAbility: 0
   bufferJumpWindow: 0.25
   coyoteJumpWindow: 0.2
   wallJumpDuration: 0.5
@@ -284,5 +286,5 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   enemyCheck: {fileID: 5435811881719649679}
-  enemyCheckRadius: 0.8
+  enemyCheckRadius: 0.5
   deathVfx: {fileID: 5705321894121786318, guid: 4bb8c9bd0be461e4fab0d4a2800385f5, type: 3}

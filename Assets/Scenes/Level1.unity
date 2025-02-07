@@ -146842,11 +146842,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4848129916279529955, guid: cbd0035ea5496a2449d244670ce4d5ed, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -42.4
+      value: -42.53
       objectReference: {fileID: 0}
     - target: {fileID: 4848129916279529955, guid: cbd0035ea5496a2449d244670ce4d5ed, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 28.77
+      value: 28.85
       objectReference: {fileID: 0}
     - target: {fileID: 4848129916279529955, guid: cbd0035ea5496a2449d244670ce4d5ed, type: 3}
       propertyPath: m_LocalPosition.z
@@ -146879,14 +146879,6 @@ PrefabInstance:
     - target: {fileID: 4848129916279529955, guid: cbd0035ea5496a2449d244670ce4d5ed, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5435811881719649679, guid: cbd0035ea5496a2449d244670ce4d5ed, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.71
-      objectReference: {fileID: 0}
-    - target: {fileID: 6598775884895439218, guid: cbd0035ea5496a2449d244670ce4d5ed, type: 3}
-      propertyPath: enemyCheckRadius
-      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7706308672349476174, guid: cbd0035ea5496a2449d244670ce4d5ed, type: 3}
       propertyPath: m_Name

@@ -29,6 +29,13 @@ public class Player : MonoBehaviour
     private float defaultGravityScale;
     private bool canDoubleJump;
 
+    [Header("Player Abilities")]
+    [SerializeField]
+    private bool doubleJumpAbility;
+
+    [SerializeField]
+    private bool wallJumpSlideAbility;
+
     [Header("Buffer Jump")]
     [SerializeField]
     private float bufferJumpWindow = .25f;
@@ -272,14 +279,17 @@ public class Player : MonoBehaviour
         if (isGrounded || coyoteJumpAvailable)
         {
             Jump();
+            Debug.Log("Jump zz1");
         }
-        else if (isWallDetected && !isGrounded)
+        else if (isWallDetected && !isGrounded && wallJumpSlideAbility)
         {
             WallJump();
+            Debug.Log("Jump zz2");
         }
-        else if (canDoubleJump)
+        else if (canDoubleJump && doubleJumpAbility)
         {
             DoubleJump();
+            Debug.Log("Jump zz3");
         }
 
         //cancel at the end of each jump
@@ -321,6 +331,9 @@ public class Player : MonoBehaviour
 
     private void HandleWallSlide()
     {
+        if (!wallJumpSlideAbility)
+            return;
+
         bool canWallSlide = isWallDetected && rb.linearVelocity.y < 0;
         float yModifier = yInput < 0 ? 1 : .05f;
 
@@ -354,6 +367,7 @@ public class Player : MonoBehaviour
     {
         anim.SetFloat("xVelocity", rb.linearVelocity.x);
         anim.SetFloat("yVelocity", rb.linearVelocity.y);
+        anim.SetBool("wallJumpSlideAbility", wallJumpSlideAbility);
         anim.SetBool("isGrounded", isGrounded);
         anim.SetBool("isWallDetected", isWallDetected);
     }
