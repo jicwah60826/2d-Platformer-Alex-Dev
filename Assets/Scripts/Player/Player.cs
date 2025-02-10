@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    // Local Vars
     private Rigidbody2D rb;
     private Animator anim;
     private CapsuleCollider2D cd;
